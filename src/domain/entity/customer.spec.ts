@@ -40,8 +40,6 @@ describe("Customer unit tests", () => {
     })
 
     it("should throw error when address is undefined when you active a customer", () =>{
-  
-
 
         expect(() => {
 
