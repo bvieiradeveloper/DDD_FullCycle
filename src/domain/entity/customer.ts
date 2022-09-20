@@ -1,4 +1,5 @@
 import Address from "./address";
+import CustomerAddressUpdatedEvent from "./customer/customer-address-updated.event";
 
 export default class Customer {
   private _id: string;
