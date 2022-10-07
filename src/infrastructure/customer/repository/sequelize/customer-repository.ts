@@ -1,7 +1,8 @@
-import Address from '../../domain/customer/value-object/address';
-import Customer from '../../domain/customer/entity/customer';
-import CustomerRepositoryInterface from '../../domain/customer/repository/customer-repository.interface';
-import CustomerModel from "../db/sequelize/model/customer.model";
+import Customer from "../../../../domain/customer/entity/customer";
+import CustomerRepositoryInterface from "../../../../domain/customer/repository/customer-repository.interface";
+import Address from "../../../../domain/customer/value-object/address";
+import CustomerModel from "./customer.model";
+
 
 export default class CustomerRepository implements CustomerRepositoryInterface{
     async create(entity: Customer): Promise<void> {
@@ -34,7 +35,17 @@ export default class CustomerRepository implements CustomerRepositoryInterface{
     });
     }
     async find(id: string): Promise<Customer> {
-       const foundCustomerById = await CustomerModel.findOne({where: {id: id}})
+        let foundCustomerById;
+        try {
+            foundCustomerById = await CustomerModel.findOne({
+            where: {
+              id,
+            },
+            rejectOnEmpty: true,
+          });
+        } catch (error) {
+          throw new Error("Customer not found");
+        }
        const customer = new Customer(foundCustomerById.id,foundCustomerById.name);
        customer.addRewardPoints(foundCustomerById.rewardPoints);
 

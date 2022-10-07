@@ -1,5 +1,4 @@
 import Address from "../value-object/address";
-import CustomerAddressUpdatedEvent from "../../entity/customer/customer-address-updated.event";
 
 export default class Customer {
   private _id: string;
