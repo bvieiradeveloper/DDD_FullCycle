@@ -15,20 +15,19 @@ export default class EventDispacher implements EventDispatcherInterface{
         //new
        
         const eventName = event.constructor.name;
-        console.log("vava",eventName)
+
         if(this.eventHandlers[eventName]){
-            console.log("vava2",eventName)
+   
             this.eventHandlers[eventName].forEach((eventHandler)=>{
-                console.log(event);
+           
                 eventHandler.handle(event)
             })
         }
     }
     register(eventName: string, eventHandler: eventHandlerInterface<eventInterface>): void {
-        console.log(this.eventHandlers[eventName])
         if(!this.eventHandlers[eventName]){
             this.eventHandlers[eventName] = [];
-            console.log(this.eventHandlers[eventName])
+
         }
 
         this.eventHandlers[eventName].push(eventHandler);
