@@ -1,3 +1,4 @@
+import { setudpDb } from "../database";
 import express, { Request, Response } from "express";
 import CreateCustomerUseCase from "../../../usecase/customer/create/create.customer.usecase";
 import CustomerRepository from "../../customer/repository/sequelize/customer-repository";
@@ -5,6 +6,7 @@ import CustomerRepository from "../../customer/repository/sequelize/customer-rep
 export const customerRoute = express.Router();
 
 customerRoute.post("/test", async (req: Request, res: Response) => {
+  await setudpDb()
   const usecase = new CreateCustomerUseCase(new CustomerRepository());
   try {
     const customerDto = {
@@ -23,6 +25,6 @@ customerRoute.post("/test", async (req: Request, res: Response) => {
     
     res.status(500).send(err);
     
-  }
+  } 
 });
 

@@ -1,8 +1,15 @@
-import { app, sequelize } from "../express";
+import { createApp } from "../express";
 import request from "supertest";
+import { setudpDb } from "../database";
+import { Sequelize } from "sequelize";
 
 describe("E2E test for customer", () => {
+
+  let sequelize: Sequelize
+  let app = createApp()
+
   beforeEach(async () => {
+    sequelize = await setudpDb()
     await sequelize.sync({ force: true });
   });
 
@@ -36,7 +43,7 @@ describe("E2E test for customer", () => {
     const response = await request(app).post("/customer").send({
       name: "john",
     });
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(404);
   });
 
 });
